@@ -29,18 +29,58 @@ if(!function_exists('e404')){
     }
 }
 if(!function_exists('upload_file')){
-    function upload_file($folder,$file){
-        $imagePath = $folder . time() . '-' . basename($file['name']) ; 
-        // $imagePath = $folder .'/'. time() . '-' . basename($file['name']) ; 
+    function upload_file2($file,$pathFolderUpload){
+        $imagePath = $pathFolderUpload . time() . '-' . basename($file['name']) ; 
         // debug( PATH_UPLOAD.  $imagePath) ; 
         if(move_uploaded_file($file['tmp_name'], PATH_UPLOAD.  $imagePath)){
             return $imagePath ; 
         } ; 
-        // return null ; 
-        throw new Exception('Upload file không thành công !') ;
+        return null ; 
     }
         
 }
+if (!function_exists('upload_file')) {
+    function upload_file($folder, $file)
+    {
+        $targetFile = $folder . '/' . time() . '-' . $file["name"];
+
+        if (move_uploaded_file($file["tmp_name"], PATH_ASSETS_UPLOADS . $targetFile)) {
+            return $targetFile;
+        }
+
+        throw new Exception('Upload file không thành công!');
+    }
+}
+// if (!function_exists('upload_file')) {
+//     function upload_file($folder, $file)
+//     {
+//         $targetFile = $folder . '/' . time() . '-' .$file["name"];
+        
+
+//         if (move_uploaded_file($file["tmp_name"], PATH_ASSETS_UPLOADS . $targetFile)) {
+           
+//             return $targetFile;
+            
+//         }else{
+//             return debug($targetFile ); 
+//         }
+
+//         // throw new Exception('Upload file không thành công!');
+//     }
+// }
+// if(!function_exists('upload_file')){
+//     function upload_file($folder,$file){
+//         $imagePath = $folder . '/'. time() . '-' . basename($file['name']) ; 
+//         // $imagePath = $folder .'/'. time() . '-' . basename($file['name']) ; 
+//         // debug( PATH_UPLOAD.  $imagePath) ; 
+//         if(move_uploaded_file($file['tmp_name'], PATH_UPLOAD .  $imagePath)){
+//             return $imagePath ; 
+//         } ; 
+//         // return null ; 
+//         throw new Exception('Upload file không thành công !') ;
+//     }
+        
+// }
 
 if(!function_exists('get_file_upload')){
     function get_file_upload($field,$default = null){

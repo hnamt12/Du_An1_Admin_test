@@ -1,28 +1,71 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="text-bg-info text-primary">Chỉnh sửa người dùng {{ $users['username']}}</h2>
+    <h1 class="mb-4">Thêm Tài Khoản Mới </h1>
+
+
+    <?php
+    if (isset($_SESSION['success'])) {
+        $class = $_SESSION['success'] ? 'alert-success' : 'alert-danger';
     
-    <form action="/users/update?id={{ $users['user_id'] }}" method="POST">
+        echo "<div class='alert $class'> {$_SESSION['msg']} </div>";
+    
+        unset($_SESSION['success']);
+        unset($_SESSION['msg']);
+    }
+    ?>
+
+    <?php if (!empty($_SESSION['errors'])): ?>
+
+    <div class="alert alert-danger">
+
+        <ul>
+            <?php foreach ($_SESSION['errors'] as $value): ?>
+
+            <li> <?= $value ?> </li>
+
+            <?php endforeach; ?>
+        </ul>
+
+    </div>
+
+    <?php unset($_SESSION['errors']); ?>
+
+
+
+    <?php endif; ?>
+    <form action="account.update&id={{ $user['user_id'] }}" method="POST" enctype="multipart/form-data">
+      
         <div class="mb-3">
-            <label for="username" class="form-label">Tên người dùng</label>
-            <input type="text" name="username" class="form-control" value="{{ $users['username'] }}" required>
+            <label for="name" class="form-label">Tên Tài Khoản :</label>
+            <input type="text" class="form-control" name="name" value="{{$user['name']}}">
+            {{-- <input type="text" class="form-control" name="username" required> --}}
         </div>
+
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" value="{{ $users['email'] }}" required>
+            <input type="email" class="form-control" id="email" name="email" value="{{ $user['email']}} ">
+            {{-- <input type="email" class="form-control" id="email" name="email" required> --}}
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Mật khẩu</label>
-            <input type="password" name="password" class="form-control" value="{{ $users['password'] }}">
+            <input type="text" class="form-control" id="password" name="password" value="{{ $user['password']}} ">
+            {{-- <input type="password" class="form-control" id="password" name="password" required> --}}
         </div>
         <div class="mb-3">
             <label for="phone_number" class="form-label">Số điện thoại</label>
-            <input type="text" name="phone_number" class="form-control" value="{{ $users['phone_number'] }}">
+            <input type="text" class="form-control" id="phone_number" name="phone_number"value="{{ $user['phone_number']}} ">
         </div>
-        <button type="submit" class="btn btn-primary">Cập nhật</button>
-        <a href="account.index" class="btn btn-secondary">Hủy</a>
+        <div class="mb-3">
+            <label for="image" class="form-label">Img Cover:</label>
+            <input type="file" class="form-control" id="image" name="image">
+    
+            <?php if (!empty($user['image'])): ?>
+                <img src="<?= BASE_ASSETS_UPLOADS . $user['image'] ?>" width="100px">
+            <?php endif; ?>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Thêm Tài Khoản </button>
+        <a href="{{ route('account.index') }}" class="btn btn-secondary">Quay lại</a>
     </form>
-</div>
 @endsection

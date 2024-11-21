@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container mt-4">
+<div class="mt-2 ">
     <h1>Chi tiết người dùng</h1>
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-header bg-primary text-white">
             Thông tin người dùng
         </div>
@@ -11,6 +11,30 @@
             <p><strong>ID:</strong> {{ $user['user_id'] }}</p>
             <p><strong>Tên người dùng:</strong> {{ $user['username'] }}</p>
             <p><strong>Email:</strong> {{ $user['email'] }}</p>
+            <p><strong>Hình Ảnh :</strong></p>
+            @foreach ($user as $user =>$value )
+               
+                <?php 
+                switch ($user) {
+                    case 'image':
+                        # code...
+                        if (!empty($value)) {
+                            # code...
+                            $link =  BASE_ASSETS_UPLOADS . $value ; 
+                        echo "<img src='$link' width='120px'> "  ;
+
+                        }
+                       
+
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+                }
+                ?>
+            @endforeach
+           
             <p><strong>Số điện thoại:</strong> {{ $user['phone_number'] ?? 'Không có' }}</p>
             <p><strong>Ngày tạo:</strong> {{ $user['created_at'] }}</p>
             <p><strong>Ngày cập nhật:</strong> {{ $user['updated_at'] }}</p>
