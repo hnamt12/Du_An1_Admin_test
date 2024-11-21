@@ -111,8 +111,8 @@ class BaseModel
         $stmt = $this->pdo->prepare($sql);
        
         $stmt->execute($params);
-        debug($stmt); 
-        die ;
+        // debug($stmt); 
+        // die ;
         return $stmt->rowCount();
     }
     function deleteid($id)

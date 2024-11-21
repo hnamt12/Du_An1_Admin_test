@@ -12,10 +12,11 @@ define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', '');
-define('DB_NAME', 'test_basemodel_duan');
-define('PATH_ROOT' ,__DIR__ . '/../'); 
-define('PATH_UPLOAD' , BASE_URL . 'app/uploads/'); 
-
+define('DB_NAME', 'du_an1_wb19306_chatgpt_delete');
+define('PATH_ROOT',         __DIR__ . '/../'); 
+define('BASE_ASSETS_UPLOADS',   BASE_URL . 'app/uploads/');
+define('PATH_ASSETS_UPLOADS',    'app/uploads/');
+// define('PATH_ASSETS_UPLOADS',   PATH_ROOT . 'app/uploads/');
 
 define('DB_OPTIONS', [
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
